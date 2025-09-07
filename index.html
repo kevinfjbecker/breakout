@@ -28,6 +28,8 @@
 
         let interval;
 
+        let score = 0;
+
         let rightPressed = false;
         let leftPressed = false;
 
@@ -70,6 +72,7 @@
 
             drawBricks();
             drawBall();
+            drawScore();
 
             bounce();
             collisionDetection();
@@ -111,6 +114,12 @@
                         ) {
                             dy = -dy;
                             b.status = 0;
+                            score++;
+                            if (score === brickColumnCount * brickRowCount) {
+                                alert("YOU WIN, CONGRATULATIONS!");
+                                document.location.reload();
+                                clearInterval(interval);
+                            }
                         }
                     }
                 }
@@ -150,6 +159,12 @@
             ctx.fillStyle = "#0095DD";
             ctx.fill();
             ctx.closePath()
+        }
+
+        function drawScore() {
+            ctx.font = "16px Arial";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText(`Score: ${score}`, 8, 20);
         }
 
         function keyDownHandler(e) {
